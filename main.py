@@ -1,6 +1,7 @@
 from data import load_data
 from metrics import rmse, mae
 from baseline import BaselinePredictor
+from user_cf import UserBasedCF
 
 def evaluate(model, test_ratings):
     preds = []
@@ -20,6 +21,12 @@ def main():
     baseline.fit(train)
     r, m = evaluate(baseline, test)
     print(f"Baseline - RMSE: {r:.4f}, MAE: {m:.4f}")
+
+    print("\nTraining User-Based CF...")
+    user_cf = UserBasedCF(k=20)
+    user_cf.fit(train)
+    r, m = evaluate(user_cf, test)
+    print(f"User-Based CF - RMSE: {r:.4f}, MAE: {m:.4f}")
 
 if __name__ == "__main__":
     main()
