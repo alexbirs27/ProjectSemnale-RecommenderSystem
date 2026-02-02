@@ -2,6 +2,7 @@ from data import load_data
 from metrics import rmse, mae
 from baseline import BaselinePredictor
 from user_cf import UserBasedCF
+from item_cf import ItemBasedCF
 
 def evaluate(model, test_ratings):
     preds = []
@@ -27,6 +28,12 @@ def main():
     user_cf.fit(train)
     r, m = evaluate(user_cf, test)
     print(f"User-Based CF - RMSE: {r:.4f}, MAE: {m:.4f}")
+
+    print("\nTraining Item-Based CF...")
+    item_cf = ItemBasedCF(k=20)
+    item_cf.fit(train)
+    r, m = evaluate(item_cf, test)
+    print(f"Item-Based CF - RMSE: {r:.4f}, MAE: {m:.4f}")
 
 if __name__ == "__main__":
     main()
