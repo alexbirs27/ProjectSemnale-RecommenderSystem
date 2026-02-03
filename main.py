@@ -5,6 +5,7 @@ from user_cf import UserBasedCF
 from item_cf import ItemBasedCF
 from mf_basic import BasicMF
 from mf_svd import MatrixFactorizationSVD
+from mf_sgd import MatrixFactorizationSGD
 
 def evaluate(model, test_ratings):
     preds = []
@@ -48,6 +49,12 @@ def main():
     mf_svd.fit(train, n_users, n_items, user_to_idx, item_to_idx)
     r, m = evaluate(mf_svd, test)
     print(f"SVD - RMSE: {r:.4f}, MAE: {m:.4f}")
+
+    print("\nTraining SGD (with biases)...")
+    mf_sgd = MatrixFactorizationSGD(n_factors=20, lr=0.005, epochs=30, reg=0.02)
+    mf_sgd.fit(train, n_users, n_items, user_to_idx, item_to_idx)
+    r, m = evaluate(mf_sgd, test)
+    print(f"SGD - RMSE: {r:.4f}, MAE: {m:.4f}")
 
 if __name__ == "__main__":
     main()
