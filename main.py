@@ -1,11 +1,13 @@
 from data import load_data
-from metrics import rmse, mae
-from baseline import BaselinePredictor
-from user_cf import UserBasedCF
-from item_cf import ItemBasedCF
-from mf_basic import BasicMF
-from mf_svd import MatrixFactorizationSVD
-from mf_sgd import MatrixFactorizationSGD
+from utils import rmse, mae
+from models import (
+    BaselinePredictor,
+    UserBasedCF,
+    ItemBasedCF,
+    BasicMF,
+    MatrixFactorizationSVD,
+    MatrixFactorizationSGD
+)
 
 def evaluate(model, test_ratings):
     preds = []

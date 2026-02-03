@@ -1,7 +1,12 @@
 import numpy as np
 import csv
+import os
 
-def load_data(path="ml-latest-small/ratings.csv", test_ratio=0.2, seed=42):
+DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "ml-latest-small")
+
+def load_data(path=None, test_ratio=0.2, seed=42):
+    if path is None:
+        path = os.path.join(DATA_DIR, "ratings.csv")
     ratings = []
     users = set()
     items = set()
