@@ -4,6 +4,7 @@ from baseline import BaselinePredictor
 from user_cf import UserBasedCF
 from item_cf import ItemBasedCF
 from mf_basic import BasicMF
+from mf_svd import MatrixFactorizationSVD
 
 def evaluate(model, test_ratings):
     preds = []
@@ -41,6 +42,12 @@ def main():
     mf_basic.fit(train, n_users, n_items, user_to_idx, item_to_idx)
     r, m = evaluate(mf_basic, test)
     print(f"Basic MF - RMSE: {r:.4f}, MAE: {m:.4f}")
+
+    print("\nTraining SVD...")
+    mf_svd = MatrixFactorizationSVD(n_factors=50)
+    mf_svd.fit(train, n_users, n_items, user_to_idx, item_to_idx)
+    r, m = evaluate(mf_svd, test)
+    print(f"SVD - RMSE: {r:.4f}, MAE: {m:.4f}")
 
 if __name__ == "__main__":
     main()
